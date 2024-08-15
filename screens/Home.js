@@ -6,14 +6,24 @@ import {
   StyleSheet,
   ScrollView,
   ImageBackground,
+  Animated,
+  Image,
 } from "react-native";
 import { connect } from "react-redux";
 import { HeaderBar } from "../components";
-import { COLORS, FONTS, SIZES, constants, icons } from "../constants";
-// import appTheme from "../constants/theme";
+import {
+  COLORS,
+  FONTS,
+  SIZES,
+  constants,
+  dummyData,
+  icons,
+  images,
+} from "../constants";
 
 const Home = ({ navigation, appTheme, toggleTheme }) => {
   //
+  const scrollX = React.useRef(new Animated.Value(0)).current;
   const renderAvailablesRewards = () => {
     return (
       <TouchableOpacity
@@ -56,6 +66,59 @@ const Home = ({ navigation, appTheme, toggleTheme }) => {
         <Tabs appTheme={appTheme} />
 
         {/* Details */}
+        <Animated.FlatList
+          data={dummyData.promos}
+          horizontal
+          pagingEnabled
+          scrollEventThrottle={16}
+          snapToAlignment={"center"}
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item) => `${item.id}`}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffSet: { x: scrollX } } }],
+            { useNativeDriver: false }
+          )}
+          renderItem={({ item, index }) => {
+            return (
+              <View style={styles.renderPromoData}>
+                {/* image */}
+                <Image
+                  source={images.strawberryBackground}
+                  resizeMode="contain"
+                  style={{ width: "100%" }}
+                />
+                {/* Name */}
+                <Text style={{ color: COLORS.red, ...FONTS.h1, fontSize: 27 }}>
+                  {item.name}
+                </Text>
+
+                {/* Description */}
+                <Text
+                  style={{
+                    color: appTheme.textColor,
+                    ...FONTS.body4,
+                    marginTop: 3,
+                  }}
+                >
+                  {item.description}
+                </Text>
+
+                {/* Callories */}
+                <Text
+                  style={{
+                    color: appTheme.textColor,
+                    ...FONTS.body4,
+                    marginTop: 3,
+                  }}
+                >
+                  Callories: {item.calories}
+                </Text>
+
+                {/* Button */}
+              </View>
+            );
+          }}
+        />
       </View>
     );
   };
@@ -202,5 +265,12 @@ const styles = StyleSheet.create({
     left: 0,
     borderRadius: SIZES.radius,
     backgroundColor: COLORS.primary,
+  },
+
+  renderPromoData: {
+    flex: 1,
+    alignItems: "center",
+    width: SIZES.width,
+    paddingTop: SIZES.padding,
   },
 });
