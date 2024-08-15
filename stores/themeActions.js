@@ -1,14 +1,15 @@
+import { lightTheme, darkTheme } from "../constants";
 export const TOGGLE_THEME_BEGAIN = "TOGGLE_THEME_BEGAIN";
 export const TOGGLE_THEME_SUCCESS = "TOGGLE_THEME_SUCCESS";
 export const TOGGLE_THEME_FAILURE = "TOGGLE_THEME_FAILURE";
 
-export const toggleThemeBegain = () => ({
+export const toggleThemeBegin = () => ({
   type: TOGGLE_THEME_BEGAIN,
 });
 
-export const toggleThemeSuccess = (selectedTheam) => ({
+export const toggleThemeSuccess = (selectedTheme) => ({
   type: TOGGLE_THEME_SUCCESS,
-  payload: { selectedTheam },
+  payload: { selectedTheme },
 });
 
 export const toggleThemeFailure = (error) => ({
@@ -16,19 +17,20 @@ export const toggleThemeFailure = (error) => ({
   payload: { error },
 });
 
-export function toggleTheme(themeType) {
-  return (dispatch) => {
-    dispatch(toggleThemeBegain());
-    switch (themeType) {
-      case "dark":
-        dispatch(toggleThemeSuccess(darkTheme));
-        break;
-      case "light":
-        dispatch(toggleThemeSuccess(lightTheme));
-        break;
-      case "dark":
-        dispatch(toggleThemeFailure({ error: "Invalid theme type" }));
-        break;
-    }
-  };
-}
+export const toggleTheme = (themeType) => (dispatch) => {
+  dispatch(toggleThemeBegin);
+
+  switch (themeType) {
+    case "dark":
+      dispatch(toggleThemeSuccess(darkTheme));
+      break;
+
+    case "light":
+      dispatch(toggleThemeSuccess(lightTheme));
+      break;
+
+    default:
+      dispatch(toggleThemeFailure({ error: "Invalid Theme Type" }));
+      break;
+  }
+};

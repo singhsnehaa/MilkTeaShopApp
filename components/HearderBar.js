@@ -7,9 +7,19 @@ import {
   StyleSheet,
   SafeAreaView,
 } from "react-native";
+import { connect } from "react-redux";
 import { COLORS, SIZES, FONTS, icons } from "../constants";
+import { toggleTheme } from "../stores/themeActions";
 
-const HeaderBar = () => {
+const HeaderBar = ({ appTheme, toggleTheme }) => {
+  const toggleThemeHandler = () => {
+    if (appTheme.name === "light") {
+      toggleTheme("dark");
+    } else {
+      toggleTheme("light");
+    }
+  };
+
   return (
     <SafeAreaView style={styles.headerBox}>
       {/* greetings */}
@@ -19,20 +29,44 @@ const HeaderBar = () => {
       </View>
 
       {/* toggle button */}
-      <TouchableOpacity style={styles.rightArea}>
+      <TouchableOpacity
+        style={styles.rightArea}
+        onPress={() => toggleThemeHandler()}
+      >
         {/* Sun Component */}
-        <View style={styles.imageArea}>
+        <View
+          style={{
+            ...styles.imageArea,
+            ...(appTheme.name === "light" ? styles.selectedLightModeStyle : {}),
+          }}
+        >
           <Image source={icons.sunny} style={styles.sunImage} />
         </View>
 
         {/* Moon Component */}
-        <View style={{ ...styles.imageArea, ...styles.selectedNightModeStyle }}>
+        <View
+          style={{
+            ...styles.imageArea,
+            ...(appTheme.name === "dark" ? styles.selectedNightModeStyle : {}),
+          }}
+        >
           <Image source={icons.night} style={styles.sunImage} />
         </View>
       </TouchableOpacity>
     </SafeAreaView>
   );
 };
+
+const mapStateToProps = (state) => ({
+  appTheme: state.appTheme,
+  error: state.error,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  toggleTheme: (themeType) => dispatch(toggleTheme(themeType)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderBar);
 
 const styles = StyleSheet.create({
   selectedNightModeStyle: {
@@ -80,5 +114,3 @@ const styles = StyleSheet.create({
     tintColor: COLORS.white,
   },
 });
-
-export default HeaderBar;

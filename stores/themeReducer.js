@@ -22,7 +22,7 @@ const themeReducer = (state = initialState, action) => {
     case themeActionTypes.TOGGLE_THEME_FAILURE:
       return {
         ...state,
-        appTheme: action.payload.error,
+        error: action.payload.error,
       };
     default:
       return state;
