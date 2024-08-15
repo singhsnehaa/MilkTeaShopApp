@@ -1,11 +1,19 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 import { HeaderBar } from "../components";
+import { COLORS, SIZES } from "../constants";
 
 const Home = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <HeaderBar />
+      <ScrollView style={styles.ScrollBarArea}></ScrollView>
     </View>
   );
 };
@@ -13,6 +21,13 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  ScrollBarArea: {
+    flex: 1,
+    backgroundColor: COLORS.secondary,
+    marginTop: -30,
+    borderTopLeftRadius: SIZES.radius * 2,
+    borderTopRightRadius: SIZES.radius * 2,
   },
 });
 

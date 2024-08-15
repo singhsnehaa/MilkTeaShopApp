@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.yellow,
   },
   headerBox: {
-    height: 150,
+    height: 120,
     width: "100%",
     backgroundColor: COLORS.purple,
     flexDirection: "row",
