@@ -9,7 +9,8 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { HeaderBar } from "../components";
-import { COLORS, FONTS, SIZES, icons } from "../constants";
+import { COLORS, FONTS, SIZES, constants, icons } from "../constants";
+// import appTheme from "../constants/theme";
 
 const Home = ({ navigation, appTheme, toggleTheme }) => {
   //
@@ -48,6 +49,51 @@ const Home = ({ navigation, appTheme, toggleTheme }) => {
     );
   };
 
+  const renderPromoDeals = () => {
+    return (
+      <View style={{ flex: 1, alignItems: "center" }}>
+        {/* Header - tabs */}
+        <Tabs appTheme={appTheme} />
+
+        {/* Details */}
+      </View>
+    );
+  };
+
+  const promoTabs = constants.promoTabs;
+
+  const TabIndicator = ({}) => {
+    return <View style={styles.tabIndicatorContainer} />;
+  };
+
+  const Tabs = ({ appTheme }) => {
+    return (
+      <View
+        style={{
+          ...styles.tabContainer,
+          backgroundColor: appTheme.tabBackgroundColor,
+        }}
+      >
+        {/* Tab Indicator */}
+        <TabIndicator />
+        {/* Tabs  */}
+        {promoTabs.map((item, index) => {
+          return (
+            <TouchableOpacity
+              key={`PromoTab-${index}`}
+              onPress={() => console.log(item)}
+            >
+              <View style={styles.promoTabs}>
+                <Text style={{ color: COLORS.white, ...FONTS.h3 }}>
+                  {item.title}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+    );
+  };
   return (
     <View style={styles.container}>
       <HeaderBar />
@@ -62,6 +108,7 @@ const Home = ({ navigation, appTheme, toggleTheme }) => {
         {renderAvailablesRewards()}
 
         {/* Promo Section */}
+        {renderPromoDeals()}
       </ScrollView>
     </View>
   );
@@ -88,6 +135,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: SIZES.radius * 2,
   },
 
+  //   rewards styles
   rewardBox: {
     flexDirection: "row",
     height: 100,
@@ -131,5 +179,28 @@ const styles = StyleSheet.create({
     marginTop: 5,
     borderRadius: SIZES.radius * 2,
     padding: SIZES.base,
+  },
+
+  //   Promo styles
+  tabContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderRadius: SIZES.radius,
+    marginTop: SIZES.padding,
+  },
+  promoTabs: {
+    paddingHorizontal: 18,
+    justifyContent: "center",
+    alignItems: "center",
+    height: 40,
+  },
+  tabIndicatorContainer: {
+    position: "absolute",
+    height: "100%",
+    width: 126,
+    left: 0,
+    borderRadius: SIZES.radius,
+    backgroundColor: COLORS.primary,
   },
 });
