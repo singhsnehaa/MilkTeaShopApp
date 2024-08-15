@@ -6,17 +6,32 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
+import { connect } from "react-redux";
 import { HeaderBar } from "../components";
 import { COLORS, SIZES } from "../constants";
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation, appTheme, toggleTheme }) => {
   return (
     <View style={styles.container}>
       <HeaderBar />
-      <ScrollView style={styles.ScrollBarArea}></ScrollView>
+      <ScrollView
+        style={{
+          ...styles.ScrollBarArea,
+          backgroundColor: appTheme.backgroundColor,
+        }}
+      ></ScrollView>
     </View>
   );
 };
+
+const mapStateToProps = (state) => ({
+  appTheme: state.appTheme,
+  error: state.error,
+});
+
+const mapDispatchToProps = (dispatch) => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
 const styles = StyleSheet.create({
   container: {
@@ -30,5 +45,3 @@ const styles = StyleSheet.create({
     borderTopRightRadius: SIZES.radius * 2,
   },
 });
-
-export default Home;
