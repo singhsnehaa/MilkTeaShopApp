@@ -10,7 +10,7 @@ import {
   Image,
 } from "react-native";
 import { connect } from "react-redux";
-import { HeaderBar } from "../components";
+import { CustomButton, HeaderBar } from "../components";
 import {
   COLORS,
   FONTS,
@@ -24,6 +24,7 @@ import {
 const Home = ({ navigation, appTheme, toggleTheme }) => {
   //
   const scrollX = React.useRef(new Animated.Value(0)).current;
+
   const renderAvailablesRewards = () => {
     return (
       <TouchableOpacity
@@ -75,7 +76,7 @@ const Home = ({ navigation, appTheme, toggleTheme }) => {
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => `${item.id}`}
           onScroll={Animated.event(
-            [{ nativeEvent: { contentOffSet: { x: scrollX } } }],
+            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
             { useNativeDriver: false }
           )}
           renderItem={({ item, index }) => {
@@ -115,6 +116,13 @@ const Home = ({ navigation, appTheme, toggleTheme }) => {
                 </Text>
 
                 {/* Button */}
+                <CustomButton
+                  containerStyle={styles.CustomButtonStyle}
+                  labelStyle={{ ...FONTS.h3 }}
+                  label={"Order Now"}
+                  onPress={() => navigation.navigate("Location")}
+                  isPrimaryButton={true}
+                />
               </View>
             );
           }}
@@ -157,6 +165,7 @@ const Home = ({ navigation, appTheme, toggleTheme }) => {
       </View>
     );
   };
+
   return (
     <View style={styles.container}>
       <HeaderBar />
@@ -272,5 +281,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: SIZES.width,
     paddingTop: SIZES.padding,
+  },
+  CustomButtonStyle: {
+    marginTop: 10,
+    paddingHorizontal: SIZES.padding,
+    paddingVertical: SIZES.base,
+    borderRadius: SIZES.radius * 2,
   },
 });
