@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import {
   View,
   Text,
@@ -23,7 +23,20 @@ import {
 
 const Home = ({ navigation, appTheme, toggleTheme }) => {
   //
-  const scrollX = React.useRef(new Animated.Value(0)).current;
+  const scrollX = useRef(new Animated.Value(0)).current;
+
+  const promoTabs = constants.promoTabs.map((promoTab) => ({
+    ...promoTab,
+    ref: React.createRef(),
+  }));
+
+  const promoScrollViewRef = useRef();
+
+  const onPromoTabPress = useCallback((promoTabIndex) => {
+    promoScrollViewRef?.current?.scrollToOffset({
+      offset: promoTabIndex * SIZES.width,
+    });
+  });
 
   const renderAvailablesRewards = () => {
     return (
@@ -64,10 +77,15 @@ const Home = ({ navigation, appTheme, toggleTheme }) => {
     return (
       <View style={{ flex: 1, alignItems: "center" }}>
         {/* Header - tabs */}
-        <Tabs appTheme={appTheme} />
+        <Tabs
+          appTheme={appTheme}
+          scrollX={scrollX}
+          onPromoTabPress={onPromoTabPress}
+        />
 
         {/* Details */}
         <Animated.FlatList
+          ref={promoScrollViewRef}
           data={dummyData.promos}
           horizontal
           pagingEnabled
@@ -131,33 +149,82 @@ const Home = ({ navigation, appTheme, toggleTheme }) => {
     );
   };
 
-  const promoTabs = constants.promoTabs;
+  const TabIndicator = ({ measureLayout, scrollX }) => {
+    const inputRange = promoTabs.map((_, i) => i * SIZES.width);
 
-  const TabIndicator = ({}) => {
-    return <View style={styles.tabIndicatorContainer} />;
+    const tabIndicatorWidth = scrollX.interpolate({
+      inputRange,
+      outputRange: measureLayout.map((measure) => measure.width),
+    });
+
+    const translateX = scrollX.interpolate({
+      inputRange,
+      outputRange: measureLayout.map((measure) => measure.x),
+    });
+
+    return (
+      <Animated.View
+        style={{
+          ...styles.tabIndicatorContainer,
+          width: tabIndicatorWidth,
+          transform: [{ translateX }],
+        }}
+      />
+    );
   };
 
-  const Tabs = ({ appTheme }) => {
+  const Tabs = ({ appTheme, scrollX, onPromoTabPress }) => {
+    const [measureLayout, setMeasureLayout] = useState([]);
+    const containerRef = React.useRef();
+    const tabPosition = Animated.divide(scrollX, SIZES.width);
+
+    useEffect(() => {
+      let ml = [];
+
+      promoTabs.forEach((promo) => {
+        promo.ref.current.measureLayout(
+          containerRef.current,
+          (x, y, width, height) => {
+            ml.push({ x, y, width, height });
+
+            if (ml.length === promoTabs.length) {
+              setMeasureLayout(ml);
+            }
+          }
+        );
+      });
+    }, [containerRef.current]);
+
     return (
       <View
+        ref={containerRef}
         style={{
           ...styles.tabContainer,
           backgroundColor: appTheme.tabBackgroundColor,
         }}
       >
         {/* Tab Indicator */}
-        <TabIndicator />
+        {measureLayout.length > 0 && (
+          <TabIndicator measureLayout={measureLayout} scrollX={scrollX} />
+        )}
+
         {/* Tabs  */}
         {promoTabs.map((item, index) => {
+          const textColor = tabPosition.interpolate({
+            inputRange: [index - 1, index, index + 1],
+            outputRange: [COLORS.lightGray2, COLORS.white, COLORS.lightGray2],
+            extrapolate: "clamp",
+          });
+
           return (
             <TouchableOpacity
               key={`PromoTab-${index}`}
-              onPress={() => console.log(item)}
+              onPress={() => onPromoTabPress(index)}
             >
-              <View style={styles.promoTabs}>
-                <Text style={{ color: COLORS.white, ...FONTS.h3 }}>
+              <View style={styles.promoTabs} ref={item.ref}>
+                <Animated.Text style={{ color: textColor, ...FONTS.h3 }}>
                   {item.title}
-                </Text>
+                </Animated.Text>
               </View>
             </TouchableOpacity>
           );
@@ -270,7 +337,7 @@ const styles = StyleSheet.create({
   tabIndicatorContainer: {
     position: "absolute",
     height: "100%",
-    width: 126,
+    // width: 126,
     left: 0,
     borderRadius: SIZES.radius,
     backgroundColor: COLORS.primary,
