@@ -1,31 +1,73 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from "react";
 import {
-    View,
-    Text,
-    TouchableOpacity,
-    StyleSheet
-} from 'react-native';
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+  Image,
+  TextInput,
+  FlatList,
+} from "react-native";
+import { connect } from "react-redux";
+import { IconButton } from "../components";
+import { COLORS, FONTS, SIZES, dummyData, icons } from "../constants";
 
-const Location = ({ navigation }) => {
+const Location = ({ navigation, appTheme }) => {
+  //
+
+  const renderHeader = () => {
     return (
-        <View style={styles.container}>
-            <Text>Location</Text>
+      <SafeAreaView style={styles.HeaderContainer}>
+        <View style={styles.headerTextArea}>
+          {/* Back Button */}
 
-            <TouchableOpacity
-                onPress={() => navigation.navigate("Order")}
-            >
-                <Text>Navigate to Order</Text>
-            </TouchableOpacity>
+          <IconButton
+            icon={icons.leftArrow}
+            onPress={() => navigation.goBack()}
+          />
+
+          {/* title */}
+          <View style={{ flex: 1, alignItems: "center" }}>
+            <Text style={{ color: COLORS.white, ...FONTS.h1 }}>Locations</Text>
+          </View>
+
+          {/* empty */}
+          <View style={{ width: 25 }}></View>
         </View>
-    )
-}
+      </SafeAreaView>
+    );
+  };
+
+  return (
+    <View style={styles.container}>
+      {/* Header */}
+      {renderHeader()}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-})
+  container: {
+    flex: 1,
+  },
+  HeaderContainer: {
+    height: 120,
+    backgroundColor: COLORS.primary,
+    alignItems: "center",
+  },
+  headerTextArea: {
+    flexDirection: "row",
+    paddingHorizontal: SIZES.radius,
+    alignItems: "center",
+  },
+});
 
-export default Location;
+const mapStateToProps = (state) => ({
+  appTheme: state.appTheme,
+  error: state.error,
+});
+
+const mapDispatchToProps = (dispatch) => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Location);
