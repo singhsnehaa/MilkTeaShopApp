@@ -43,6 +43,16 @@ const Location = ({ navigation, appTheme }) => {
     <View style={styles.container}>
       {/* Header */}
       {renderHeader()}
+
+      {/* Details */}
+      <View
+        style={{
+          ...styles.detailsContainer,
+          backgroundColor: appTheme.backgroundColor,
+        }}
+      >
+        {/* {renderTopBarSection()} */}
+      </View>
     </View>
   );
 };
@@ -60,6 +70,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingHorizontal: SIZES.radius,
     alignItems: "center",
+  },
+  detailsContainer: {
+    flex: 1,
+    marginTop: -20,
+    borderTopLeftRadius: SIZES.radius * 2,
+    borderTopRightRadius: SIZES.radius * 2,
+    padding: SIZES.padding,
   },
 });
 
