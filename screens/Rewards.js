@@ -1,25 +1,14 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
   StyleSheet,
   ImageBackground,
-  Animated,
-  Image,
   FlatList,
 } from "react-native";
 import { connect } from "react-redux";
 import { CustomButton, HeaderBar } from "../components";
-import {
-  COLORS,
-  FONTS,
-  SIZES,
-  constants,
-  dummyData,
-  icons,
-  images,
-} from "../constants";
+import { COLORS, FONTS, SIZES, dummyData, icons } from "../constants";
 
 const Rewards = ({ navigation, appTheme }) => {
   //
@@ -41,7 +30,7 @@ const Rewards = ({ navigation, appTheme }) => {
           style={styles.rewardCupImage}
         >
           <View style={styles.rewardPointArea}>
-            <Text style={{ ...FONTS.h1 }}>280</Text>
+            <Text style={{ ...FONTS.h1, marginLeft: 8 }}>280</Text>
           </View>
         </ImageBackground>
       </View>
@@ -72,6 +61,16 @@ const Rewards = ({ navigation, appTheme }) => {
     );
   };
 
+  const renderAvailableRewardHeader = () => {
+    return (
+      <View style={styles.availableRewad}>
+        <Text style={{ color: appTheme.textColor, ...FONTS.h2 }}>
+          Available Rewards
+        </Text>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       {/* Header Bbar */}
@@ -91,25 +90,31 @@ const Rewards = ({ navigation, appTheme }) => {
           <View>
             {/* Reward point */}
             {renderRewardPoindSection()}
+
             {/* button */}
             {renderButtons()}
+
             {/* HeaderLabel */}
+            {renderAvailableRewardHeader()}
           </View>
         }
+        ListFooterComponent={<View style={{ marginBottom: 120 }}></View>}
         renderItem={({ item }) => {
           return (
             <View
               style={{
                 ...styles.renderContainer,
-                backgroundColor: item.eligible ? COLORS.yellow : COLORS.gray,
+                backgroundColor: item.eligible ? COLORS.yellow : COLORS.gray2,
               }}
             >
               <Text
                 style={{
-                  color: item.eligible ? COLORS.black : COLORS.gray,
+                  color: item.eligible ? COLORS.black : COLORS.lightGray2,
                   ...FONTS.body3,
                 }}
-              ></Text>
+              >
+                {item.title}
+              </Text>
             </View>
           );
         }}
@@ -167,6 +172,11 @@ const styles = StyleSheet.create({
     marginRight: SIZES.radius,
     paddingVertical: 5,
     borderRadius: SIZES.radius * 2,
+  },
+  availableRewad: {
+    marginTop: SIZES.padding,
+    marginBottom: SIZES.radius,
+    paddingHorizontal: SIZES.padding,
   },
 });
 
