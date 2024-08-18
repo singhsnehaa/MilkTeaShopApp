@@ -11,7 +11,14 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { IconButton, TabButton } from "../components";
-import { COLORS, FONTS, SIZES, dummyData, icons } from "../constants";
+import {
+  COLORS,
+  FONTS,
+  SIZES,
+  dummyData,
+  icons,
+  selectedTheme,
+} from "../constants";
 
 const Location = ({ navigation, appTheme }) => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -68,6 +75,131 @@ const Location = ({ navigation, appTheme }) => {
     );
   };
 
+  const renderSearchBar = () => {
+    return (
+      <View style={styles.searchBarContainer}>
+        <TextInput
+          style={styles.textInputStyle}
+          placeholder={"enter your city, state or zip code"}
+          placeholderTextColor={COLORS.lightGray2}
+        />
+        <Image source={icons.search} style={styles.searchStyle} />
+      </View>
+    );
+  };
+
+  const renderLocationList = () => {
+    return (
+      <FlatList
+        style={styles.locationListStyle}
+        data={dummyData.locations}
+        keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
+        keyboardDismissMode="on-drag"
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+              style={{
+                ...styles.renderContainer,
+                backgroundColor: appTheme.cardBackgroundColor,
+              }}
+              onPress={() =>
+                navigation.navigate("Order", {
+                  selectedLocation: item,
+                })
+              }
+            >
+              {/* Name & Bookmark */}
+              <View style={{ flexDirection: "row" }}>
+                <Text
+                  style={{ flex: 1, color: appTheme.textColor, ...FONTS.h2 }}
+                >
+                  {item.title}
+                </Text>
+                <Image
+                  source={
+                    item.bookmarked ? icons.bookmarkFilled : icons.bookmark
+                  }
+                  style={{
+                    ...styles.bookmarkStyle,
+                    tintColor: item.bookmarked ? COLORS.red2 : COLORS.white,
+                  }}
+                />
+              </View>
+              {/* Address */}
+
+              <View style={{ width: "80%", marginTop: SIZES.base }}>
+                <Text
+                  style={{
+                    flex: 1,
+                    color: appTheme.textColor,
+                    ...FONTS.body3,
+                    lineHeight: 21,
+                  }}
+                >
+                  {item.address}
+                </Text>
+              </View>
+              {/* Operation Hours */}
+
+              <View style={{ marginTop: SIZES.base }}>
+                <Text
+                  style={{
+                    flex: 1,
+                    color: appTheme.textColor,
+                    ...FONTS.body5,
+                    lineHeight: 16,
+                  }}
+                >
+                  {item.operation_hours}
+                </Text>
+              </View>
+
+              {/* Services */}
+
+              <View style={{ flexDirection: "row", marginTop: SIZES.base }}>
+                {/* pick - up */}
+                <View
+                  style={{
+                    ...styles.pickUpBtn,
+                    borderColor: appTheme.textColor,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: appTheme.textColor,
+                      ...FONTS.body3,
+                    }}
+                  >
+                    Pick-Up
+                  </Text>
+                </View>
+
+                {/* Delivery */}
+
+                <View
+                  style={{
+                    ...styles.pickUpBtn,
+                    borderColor: appTheme.textColor,
+                    marginLeft: 7,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: appTheme.textColor,
+                      ...FONTS.body3,
+                    }}
+                  >
+                    Dekivery
+                  </Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          );
+        }}
+      />
+    );
+  };
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -81,6 +213,10 @@ const Location = ({ navigation, appTheme }) => {
         }}
       >
         {renderTopBarSection()}
+
+        {renderSearchBar()}
+
+        {renderLocationList()}
       </View>
     </View>
   );
@@ -106,6 +242,48 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: SIZES.radius * 2,
     borderTopRightRadius: SIZES.radius * 2,
     padding: SIZES.padding,
+  },
+  searchBarContainer: {
+    flexDirection: "row",
+    marginTop: SIZES.radius,
+    height: 50,
+    paddingHorizontal: SIZES.padding,
+    borderRadius: 25,
+    backgroundColor: COLORS.lightGreen2,
+    alignItems: "center",
+  },
+  textInputStyle: {
+    flex: 1,
+    height: 50,
+    color: COLORS.black,
+    ...FONTS.body3,
+  },
+  searchStyle: {
+    width: 30,
+    height: 30,
+    tintColor: COLORS.lightGray2,
+  },
+
+  locationListStyle: {
+    marginTop: SIZES.radius,
+    paddingHorizontal: SIZES.radius,
+  },
+  renderContainer: {
+    marginBottom: SIZES.radius,
+    borderRadius: SIZES.radius * 2,
+    paddingHorizontal: SIZES.padding,
+    paddingVertical: SIZES.radius,
+  },
+  bookmarkStyle: {
+    width: 20,
+    height: 20,
+  },
+  pickUpBtn: {
+    borderWidth: 1,
+
+    borderRadius: 20,
+    paddingHorizontal: SIZES.radius,
+    paddingVertical: 5,
   },
 });
 
