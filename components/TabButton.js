@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 
-import { COLORS } from "../constants";
+import { COLORS, FONTS } from "../constants";
 
-const TabButton = ({ containerStyle, iconStyle, selected, label, onPress }) => {
+const TabButton = ({ containerStyle, selected, label, onPress }) => {
   return (
     <TouchableOpacity
       style={{ alignItems: "center", ...containerStyle }}
