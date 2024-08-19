@@ -20,7 +20,7 @@ const Rewards = ({ navigation, appTheme }) => {
         <Text style={{ color: COLORS.primary, ...FONTS.h1, fontStyle: 35 }}>
           Rewards
         </Text>
-        <Text style={{ ...styles.nextAway, color: appTheme.text }}>
+        <Text style={{ ...styles.nextAway, color: appTheme.textColor }}>
           You are 60 points away from your next reward
         </Text>
         {/* images */}
