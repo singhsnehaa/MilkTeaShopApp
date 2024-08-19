@@ -22,6 +22,7 @@ import {
 
 const Order = ({ navigation, route, appTheme }) => {
   const [selectedLocation, setSelectedLocation] = useState();
+  const [selectedTab, setSelectedTab] = useState(0);
 
   useEffect(() => {
     let { selectedLocation } = route.params;
@@ -55,7 +56,58 @@ const Order = ({ navigation, route, appTheme }) => {
       </SafeAreaView>
     );
   };
-  return <View style={styles.container}>{renderHeaderSection()}</View>;
+
+  const renderTopBarSection = () => {
+    return (
+      <View style={styles.topBarContainer}>
+        {/* top buttons */}
+        <View style={{ flex: 1, flexDirection: "row" }}>
+          <TabButton
+            containerStyle={{ width: 60 }}
+            label={"Menu"}
+            selected={selectedTab == 0}
+            onPress={() => setSelectedTab(0)}
+          />
+          {/* Previous */}
+          <TabButton
+            containerStyle={{ width: 90 }}
+            label={"Previous"}
+            selected={selectedTab == 1}
+            onPress={() => setSelectedTab(1)}
+          />
+          {/* Favourite */}
+          <TabButton
+            containerStyle={{ width: 90 }}
+            label={"Favourite"}
+            selected={selectedTab == 2}
+            onPress={() => setSelectedTab(2)}
+          />
+        </View>
+
+        {/* order no */}
+        <View style={styles.orderNoBox}>
+          <Text style={{ color: COLORS.white, ...FONTS.h3 }}>0</Text>
+        </View>
+      </View>
+    );
+  };
+  return (
+    <View style={styles.container}>
+      {/* header */}
+      {renderHeaderSection()}
+
+      {/* details */}
+
+      <View
+        style={{
+          ...styles.detailContainer,
+          backgroundColor: appTheme.backgroundColor,
+        }}
+      >
+        {renderTopBarSection()}
+      </View>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -78,6 +130,29 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.padding,
     marginTop: SIZES.radius,
     backgroundColor: COLORS.white1,
+  },
+
+  detailContainer: {
+    flex: 1,
+    marginTop: -45,
+    borderTopLeftRadius: SIZES.radius * 2,
+    borderTopRightRadius: SIZES.radius * 2,
+  },
+  topBarContainer: {
+    flexDirection: "row",
+    height: 50,
+    marginTop: SIZES.radius,
+    justifyContent: "center",
+    paddingLeft: SIZES.padding * 2,
+    paddingRight: SIZES.padding,
+  },
+  orderNoBox: {
+    width: 35,
+    height: 35,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: COLORS.primary,
   },
 });
 
