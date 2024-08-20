@@ -10,7 +10,8 @@ import {
   FlatList,
 } from "react-native";
 import { connect } from "react-redux";
-import { IconButton, TabButton } from "../components";
+import Svg, { Circle } from "react-native-svg";
+import { IconButton, TabButton, VerticleTextButton } from "../components";
 import {
   COLORS,
   FONTS,
@@ -91,6 +92,56 @@ const Order = ({ navigation, route, appTheme }) => {
       </View>
     );
   };
+
+  const renderSideBar = () => {
+    return (
+      <View>
+        <Svg height="65" width="65" viewBox="0 0 65 65">
+          <Circle cx="5" cy="60" r="60" fill={COLORS.primary} />
+        </Svg>
+        <View style={styles.sideBarContainer}>
+          <VerticleTextButton
+            //   containerStyle={{ width: "20%" }}
+            label={"Snack"}
+            //   selected={selectedTab == 0}
+            //   onPress={() => setSelectedTab(0)}
+          />
+          <VerticleTextButton
+            //   containerStyle={{ width: 50 }}
+            containerStyle={{ marginTop: 50 }}
+            label={"Coffee"}
+            //   selected={selectedTab == 0}
+            //   onPress={() => setSelectedTab(0)}
+          />
+          <VerticleTextButton
+            containerStyle={{ width: 100, marginTop: 70 }}
+            //   containerStyle={{ marginTop: 70 }}
+            label={"Smothie"}
+            //   selected={selectedTab == 0}
+            //   onPress={() => setSelectedTab(0)}
+          />
+          <VerticleTextButton
+            containerStyle={{ width: 110, marginTop: 90 }}
+            //   containerStyle={{ width: 150 }}
+            label={"Spacial Tea"}
+            //   selected={selectedTab == 0}
+            //   onPress={() => setSelectedTab(0)}
+          />
+          <VerticleTextButton
+            containerStyle={{ width: 80, marginTop: 80 }}
+            //   containerStyle={{ width: 60 }}
+            label={"Milk Tea"}
+            //   selected={selectedTab == 0}
+            //   onPress={() => setSelectedTab(0)}
+          />
+        </View>
+        <Svg height="65" width="65" viewBox="0 0 65 65">
+          <Circle cx="5" cy="0" r="60" fill={COLORS.primary} />
+        </Svg>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       {/* header */}
@@ -104,7 +155,15 @@ const Order = ({ navigation, route, appTheme }) => {
           backgroundColor: appTheme.backgroundColor,
         }}
       >
+        {/* tab bar section */}
         {renderTopBarSection()}
+
+        {/* Side bar & listing */}
+        <View style={{ flex: 1, flexDirection: "row" }}>
+          {/* side bar */}
+          {renderSideBar()}
+          {/* Listing */}
+        </View>
       </View>
     </View>
   );
@@ -153,6 +212,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: COLORS.primary,
+  },
+  sideBarContainer: {
+    marginTop: -10,
+    width: 65,
+    backgroundColor: COLORS.primary,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
