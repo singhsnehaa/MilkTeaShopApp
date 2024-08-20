@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   SafeAreaView,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   Image,
   FlatList,
@@ -12,14 +11,7 @@ import {
 import { connect } from "react-redux";
 import Svg, { Circle } from "react-native-svg";
 import { IconButton, TabButton, VerticleTextButton } from "../components";
-import {
-  COLORS,
-  FONTS,
-  SIZES,
-  dummyData,
-  icons,
-  selectedTheme,
-} from "../constants";
+import { COLORS, FONTS, SIZES, dummyData, icons } from "../constants";
 
 const Order = ({ navigation, route, appTheme }) => {
   const [selectedLocation, setSelectedLocation] = useState();
