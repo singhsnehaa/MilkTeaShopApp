@@ -23,46 +23,17 @@ const OrderDetail = ({ navigation, route, appTheme }) => {
 
   const renderHeaderSection = () => {
     return (
-      <View
-        style={{
-          width: "100%",
-          height: "55%",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <View
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 40,
-            bottom: 0,
-            right: 0,
-            borderBottomLeftRadius: 100,
-            backgroundColor: COLORS.primary,
-          }}
-        >
+      <View style={styles.headerContainer}>
+        <View style={styles.innerHeaderArea}>
           <Image
             source={selectedItem?.thumbnail}
             resizeMode="contain"
-            style={{
-              marginTop: 60,
-              marginLeft: 30,
-              width: SIZES.width * 0.7,
-              height: SIZES.width * 0.7,
-            }}
+            style={styles.thumbnailImg}
           />
 
           {/* Back Button */}
           <IconButton
-            containerStyle={{
-              position: "absolute",
-              top: 45,
-              left: 20,
-              padding: 10,
-              borderRadius: SIZES.radius,
-              backgroundColor: COLORS.black,
-            }}
+            containerStyle={styles.iconLeftArrow}
             icon={icons.leftArrow}
             onPress={() => navigation.goBack()}
           />
@@ -88,6 +59,36 @@ const OrderDetail = ({ navigation, route, appTheme }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  headerContainer: {
+    width: "100%",
+    height: "55%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  innerHeaderArea: {
+    position: "absolute",
+    top: 0,
+    left: 40,
+    bottom: 0,
+    right: 0,
+    borderBottomLeftRadius: 100,
+    backgroundColor: COLORS.primary,
+  },
+  thumbnailImg: {
+    marginTop: 60,
+    marginLeft: 30,
+    width: SIZES.width * 0.7,
+    height: SIZES.width * 0.7,
+  },
+  iconLeftArrow: {
+    position: "absolute",
+    top: 45,
+    left: 20,
+    padding: 10,
+    borderRadius: SIZES.radius,
+    backgroundColor: COLORS.black,
   },
 });
 
