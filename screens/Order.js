@@ -24,6 +24,7 @@ import {
 const Order = ({ navigation, route, appTheme }) => {
   const [selectedLocation, setSelectedLocation] = useState();
   const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedCatogory, setSelectedTCatogory] = useState("Milk Tea");
 
   useEffect(() => {
     let { selectedLocation } = route.params;
@@ -101,38 +102,33 @@ const Order = ({ navigation, route, appTheme }) => {
         </Svg>
         <View style={styles.sideBarContainer}>
           <VerticleTextButton
-            //   containerStyle={{ width: "20%" }}
             label={"Snack"}
-            //   selected={selectedTab == 0}
-            //   onPress={() => setSelectedTab(0)}
+            selected={selectedCatogory == "Snack"}
+            onPress={() => setSelectedTCatogory("Snack")}
           />
           <VerticleTextButton
-            //   containerStyle={{ width: 50 }}
             containerStyle={{ marginTop: 50 }}
             label={"Coffee"}
-            //   selected={selectedTab == 0}
-            //   onPress={() => setSelectedTab(0)}
+            selected={selectedCatogory == "Coffee"}
+            onPress={() => setSelectedTCatogory("Coffee")}
           />
           <VerticleTextButton
             containerStyle={{ width: 100, marginTop: 70 }}
-            //   containerStyle={{ marginTop: 70 }}
             label={"Smothie"}
-            //   selected={selectedTab == 0}
-            //   onPress={() => setSelectedTab(0)}
+            selected={selectedCatogory == "Smothie"}
+            onPress={() => setSelectedTCatogory("Smothie")}
           />
           <VerticleTextButton
             containerStyle={{ width: 110, marginTop: 90 }}
-            //   containerStyle={{ width: 150 }}
             label={"Spacial Tea"}
-            //   selected={selectedTab == 0}
-            //   onPress={() => setSelectedTab(0)}
+            selected={selectedCatogory == "Spacial Tea"}
+            onPress={() => setSelectedTCatogory("Spacial Tea")}
           />
           <VerticleTextButton
             containerStyle={{ width: 80, marginTop: 80 }}
-            //   containerStyle={{ width: 60 }}
             label={"Milk Tea"}
-            //   selected={selectedTab == 0}
-            //   onPress={() => setSelectedTab(0)}
+            selected={selectedCatogory == 0}
+            onPress={() => setSelectedTCatogory(0)}
           />
         </View>
         <Svg height="65" width="65" viewBox="0 0 65 65">
@@ -219,6 +215,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     alignItems: "center",
     justifyContent: "center",
+    zIndex: 1,
   },
 });
 
