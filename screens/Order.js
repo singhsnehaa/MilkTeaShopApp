@@ -25,11 +25,19 @@ const Order = ({ navigation, route, appTheme }) => {
   const [selectedLocation, setSelectedLocation] = useState();
   const [selectedTab, setSelectedTab] = useState(0);
   const [selectedCatogory, setSelectedTCatogory] = useState("Milk Tea");
+  const [menu, setMenu] = useState(null);
 
   useEffect(() => {
     let { selectedLocation } = route.params;
     setSelectedLocation(selectedLocation);
   }, []);
+
+  useEffect(() => {
+    let menuList = dummyData.menuList.filter(
+      (menuItem) => menuItem.category == selectedCatogory
+    );
+    setMenu(menuList);
+  }, [selectedCatogory]);
 
   const renderHeaderSection = () => {
     return (
@@ -114,21 +122,21 @@ const Order = ({ navigation, route, appTheme }) => {
           />
           <VerticleTextButton
             containerStyle={{ width: 100, marginTop: 70 }}
-            label={"Smothie"}
-            selected={selectedCatogory == "Smothie"}
-            onPress={() => setSelectedTCatogory("Smothie")}
+            label={"Smoothie"}
+            selected={selectedCatogory == "Smoothie"}
+            onPress={() => setSelectedTCatogory("Smoothie")}
           />
           <VerticleTextButton
             containerStyle={{ width: 110, marginTop: 90 }}
             label={"Spacial Tea"}
-            selected={selectedCatogory == "Spacial Tea"}
-            onPress={() => setSelectedTCatogory("Spacial Tea")}
+            selected={selectedCatogory == "Specialtea"}
+            onPress={() => setSelectedTCatogory("Specialtea")}
           />
           <VerticleTextButton
             containerStyle={{ width: 80, marginTop: 80 }}
             label={"Milk Tea"}
-            selected={selectedCatogory == 0}
-            onPress={() => setSelectedTCatogory(0)}
+            selected={selectedCatogory == "Milk Tea"}
+            onPress={() => setSelectedTCatogory("Milk Tea")}
           />
         </View>
         <Svg height="65" width="65" viewBox="0 0 65 65">
@@ -158,7 +166,54 @@ const Order = ({ navigation, route, appTheme }) => {
         <View style={{ flex: 1, flexDirection: "row" }}>
           {/* side bar */}
           {renderSideBar()}
+
           {/* Listing */}
+          <FlatList
+            data={menu}
+            contentContainerStyle={{ marginTop: 16, paddingBottom: 60 }}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item, index }) => {
+              return (
+                <TouchableWithoutFeedback
+                  onPress={() =>
+                    navigation.navigate("OrderDetail", {
+                      selectedLocation: item,
+                    })
+                  }
+                >
+                  <View
+                    style={{
+                      ...styles.renderMenuListContainer,
+                      marginTop: index > 0 ? SIZES.padding : 0,
+                    }}
+                  >
+                    {/* Thumbnail */}
+                    <View style={styles.menuThumbnailBox}>
+                      <Image
+                        source={item.thumbnail}
+                        resizeMode="contain"
+                        style={{ width: 100, height: 100 }}
+                      />
+                    </View>
+
+                    {/* Details */}
+                    <View style={styles.menuDetailBox}>
+                      <Text style={styles.detailHeader}>{item.name}</Text>
+                      <Text
+                        style={{
+                          color: COLORS.lightYellow,
+                          ...FONTS.h2,
+                          fontSize: 18,
+                        }}
+                      >
+                        {item.price}
+                      </Text>
+                    </View>
+                  </View>
+                </TouchableWithoutFeedback>
+              );
+            }}
+          />
         </View>
       </View>
     </View>
@@ -216,6 +271,40 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     zIndex: 1,
+  },
+  renderMenuListContainer: {
+    height: 150,
+    paddingHorizontal: SIZES.padding,
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+  },
+  menuThumbnailBox: {
+    position: "absolute",
+    top: 0,
+    left: SIZES.padding,
+    width: 130,
+    height: 140,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: SIZES.radius,
+    backgroundColor: COLORS.lightYellow,
+    zIndex: 1,
+  },
+  menuDetailBox: {
+    width: "70%",
+    height: "85%",
+    padding: "22%",
+    paddingRight: SIZES.base,
+    paddingVertical: SIZES.base,
+    borderRadius: SIZES.radius,
+    justifyContent: "space-between",
+    backgroundColor: COLORS.primary,
+  },
+  detailHeader: {
+    color: COLORS.white,
+    ...FONTS.h2,
+    fontSize: 18,
+    lineHeight: 25,
   },
 });
 
