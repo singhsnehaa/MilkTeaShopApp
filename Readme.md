@@ -42,9 +42,8 @@ This React Native project can be setup locally in <ins>_3 simple steps_</ins> an
 
 `https://github.com/singhsnehaa/MilkTeaShopApp/android/app/build/outputs/apk/debug/app-debug.apk`
 
-# Few Images of our screen
+# Few Images of our screen(dark mode and light modee images also)
 
-<img src="sampleImages/Home-dark-mode.png" width="300" /> <img src="sampleImages/Home-light-mode.png" width="300" />
+<img src="sampleImages/Home-dark-mode.png" width="300" /> <img src="sampleImages/Home-light-mode.png" width="300" /> <img src="sampleImages/Rewads.png" width="300" />
 
-- <img src="sampleImages/Rewads.png" width="300" /> <img src="sampleImages/locationList.png" width="300" />
-- <img src="sampleImages/OrderList.png" width="300" /> <img src="sampleImages/orderDetails.png" width="300" />
+- <img src="sampleImages/locationList.png" width="300" /> <img src="sampleImages/OrderList.png" width="300" /> <img src="sampleImages/orderDetails.png" width="300" />
