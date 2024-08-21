@@ -44,4 +44,7 @@ This React Native project can be setup locally in <ins>_3 simple steps_</ins> an
 
 # Few Images of our screen
 
-- assets/images/strawberry-background.png
+- ![Alt text](./sampleImages/Rewads.png)
+- ![Alt text](sampleImages/Rewads.png)
+- <img src="sampleImages/OrderList.png" width="300" />
+- <img src="./sampleImages/Rewads.png" width="150",height="150" />
