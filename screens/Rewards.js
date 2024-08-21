@@ -17,7 +17,7 @@ const Rewards = ({ navigation, appTheme }) => {
     return (
       <View style={{ alignItems: "center", marginVertical: SIZES.padding }}>
         {/* text */}
-        <Text style={{ color: COLORS.primary, ...FONTS.h1, fontStyle: 35 }}>
+        <Text style={{ color: COLORS.primary, ...FONTS.h1, fontSize: 35 }}>
           Rewards
         </Text>
         <Text style={{ ...styles.nextAway, color: appTheme.textColor }}>
@@ -98,7 +98,7 @@ const Rewards = ({ navigation, appTheme }) => {
             {renderAvailableRewardHeader()}
           </View>
         }
-        ListFooterComponent={<View style={{ marginBottom: 120 }}></View>}
+        ListFooterComponent={<View style={{ marginBottom: 120 }} />}
         renderItem={({ item }) => {
           return (
             <View

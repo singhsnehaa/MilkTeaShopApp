@@ -129,7 +129,7 @@ const OrderDetail = ({ navigation, route, appTheme }) => {
               </ImageBackground>
               <Text
                 style={{
-                  color: COLORS.white,
+                  color: appTheme.textColor,
                   ...FONTS.body3,
                   marginTop: 3,
                 }}
@@ -161,7 +161,7 @@ const OrderDetail = ({ navigation, route, appTheme }) => {
               </ImageBackground>
               <Text
                 style={{
-                  color: COLORS.white,
+                  color: appTheme.textColor,
                   ...FONTS.body3,
                   marginTop: 3,
                 }}
@@ -210,7 +210,7 @@ const OrderDetail = ({ navigation, route, appTheme }) => {
             </View>
             <Text
               style={{
-                color: COLORS.white,
+                color: appTheme.textColor,
                 ...FONTS.body3,
                 marginTop: SIZES.base,
               }}

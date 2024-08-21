@@ -59,7 +59,13 @@ const Home = ({ navigation, appTheme, toggleTheme }) => {
         {/* Reward details */}
 
         <View style={styles.rightRewardBox}>
-          <Text style={{ color: COLORS.primary, ...FONTS.h2, fontSize: 20 }}>
+          <Text
+            style={{
+              color: COLORS.primary,
+              ...FONTS.h2,
+              fontSize: 20,
+            }}
+          >
             Available Rewards
           </Text>
 
