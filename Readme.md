@@ -1,6 +1,6 @@
 # Tea Shop App
 
-Application is related to order the tea, coffee , Milkshake etc and also select the size of cup and also increse or decrease the quanty of sweetness, Milk and Ice in the ordered product as well. User has also Reward point to use for next order.
+The Tea Shop App allows users to order beverages like tea, coffee, and milkshakes. Users can customize their orders by selecting cup sizes and adjusting the sweetness, milk, and ice levels. Additionally, reward points can be earned and used for future purchases.
 
 ### This app has 5 bottom tabs
 
@@ -8,41 +8,40 @@ Application is related to order the tea, coffee , Milkshake etc and also select 
 - Rewards
 - AddOrder
 - Favourite
+- Profile
 
 ## Features
 
-- Light/Dark theme impliment, handled through Redux State management
-- Home-> Dynamic Tob bar tabs , tabs move according to his text width, according to tab data showing, Animation used in flatlist.
-- Reward-> here It will show all type of rewards
-- Order-> in this screen there is two type of TabBar, Top tab bar, and Horrizontal TabBar according to tab data has changed.
-- There is Increase and decrease the Size of cup and also increse or decrease the quanty of sweetness, Milk and Ice in the ordered producte with easy functionality and a good UI.
+- Light/Dark theme support, managed via Redux.
+- Home: Dynamic top bar tabs that adjust based on text width, with animation used in the FlatList.
+- Rewards: Displays all available rewards.
+- Order: Two tab bars are featured on this screen—a top tab bar and a horizontal tab bar—where the displayed data updates according to the selected tab.
+- Users can easily increase or decrease cup size, sweetness, milk, and ice levels with an intuitive UI.
 
-## Tech
+## Technology Stack
 
-Uses of tech in this application with version
-
-- [React Native] - For reach UI and both the platform(Android & IOS) Version 0.64.4 enhanced for Mobile apps!
-- [Navigation] - For navigation Bottom-tabs Navigation(Version-5.11.9), Stack Navigation(Versio-5.14.4)
-- [React Redux] - for state management react-redux(Version-7.2.4), redux-thunk(Version-2.4.1) and redux(Version-4.1.0).
-- [Svg] - react-native-svg(Version-12.3.0)
-- [Javascript] - for logic implimentaion
-- [git hub] - for code access
+- [React-Native] - For a rich UI across both Android and iOS (version 0.64.4).
+- [Navigation] - Bottom-tabs navigation (v5.11.9) and stack navigation (v5.14.4).
+- [React-Redux] - fState management using react-redux (v7.2.4), redux-thunk (v2.4.1), and redux (v4.1.0).
+- [Svg] - react-native-svg (v12.3.0). for circle and images.
+- [Javascript] - For implementing logic.
+- [git-hub] - For code version control.
 
 # Run Project Locally
 
 This React Native project can be setup locally in <ins>_3 simple steps_</ins> and also assume that **_React Native Cli_**, **_Xcode_** and **_Android Studio_** is already installed.
 
-1. Clone the repository from remote to local machine by using `https://github.com/singhsnehaa/MilkTeaShopApp.git` command in your terminal.
+1.Clone the repository to your local machine using the command: `https://github.com/singhsnehaa/MilkTeaShopApp.git`
 
-2. Navigate to the project folder by `cd MilkTeaShopApp` and install the dependencies by command `npm install` and `cd ios && pod install`
+2. Navigate to the project folder using `cd MilkTeaShopApp` and install the dependencies by running: `npm install and cd ios && pod install`.
 
-3. Run the project by using command `npx react-native run-ios` & `npx react-native run-android`
+3. Run the project with the commands: `npx react-native run-ios` & `npx react-native run-android`
 
-## APK file to check:
+## APK File for Testing:
 
-`https://github.com/singhsnehaa/MilkTeaShopApp/android/app/build/outputs/apk/debug/app-debug.apk`
+Download the APK file here: `https://github.com/singhsnehaa/MilkTeaShopApp/android/app/build/outputs/apk/debug/app-debug.apk`
 
-# Few Images of our screen(dark mode and light modee images also)
+# Screenshots of the app (Light and Dark modes):
 
 <img src="sampleImages/Home-dark-mode.png" width="300" /> <img src="sampleImages/Home-light-mode.png" width="300" /> <img src="sampleImages/Rewads.png" width="300" />
 
